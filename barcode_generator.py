@@ -1,16 +1,24 @@
+"""Generate Data Matrix barcodes for data in the format: [a-zA-Z0-9]{3}"""
 import treepoem
 
 
 class BarcodeGenerator():
-    """Generate Data Matrix barcodes for data in the format: [a-zA-Z0-9]{3}"""
+    """Class to represent the barcode generator"""
 
     def __init__(self):
-        self.charset = tuple('0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ')
+        self.charset = tuple(
+            '0123456789'
+            'abcdefghijklmnopqrstuvwxyz'
+            'ABCDEFGHIJKLMNOPQRSTUVWXYZ')
         self.codes = list()
+        self.count = 0
+        self.code = None
         self.active = False
         self.index = 0
+        self.barcode = None
 
     def init(self):
+        """Initialise counters and generate every code"""
         for a in self.charset:
             for b in self.charset:
                 for c in self.charset:
@@ -19,9 +27,11 @@ class BarcodeGenerator():
         self.active = True
         self.index = 0
         self.code = self.codes[0]
-        return True
+        self.count = len(self.codes)
+        return self.count
 
     def jump(self, index):
+        """Skip to a specific code index"""
         if not self.active:
             return None
 
@@ -31,6 +41,7 @@ class BarcodeGenerator():
         return self.code
 
     def next(self):
+        """Move to the next code"""
         return self.jump(self.index + 1)
 
     def generate_barcode(self):
@@ -39,17 +50,10 @@ class BarcodeGenerator():
             return None
 
         self.barcode = treepoem.generate_barcode(
-                barcode_type='datamatrix',
-                data=self.code,
-                options={
-                    'rows': 10,
-                    'columns': 10
-                    },
-                )
-
-    def save(self, filename):
-        """Save current barcode"""
-        if not self.active:
-            return None
-
-        self.barcode.save(filename)
+            barcode_type='datamatrix',
+            data=self.code,
+            options={
+                'rows': 10,
+                'columns': 10
+                },
+            )

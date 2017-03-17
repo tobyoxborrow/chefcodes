@@ -7,16 +7,10 @@ import tkinter as tk
 class SlideShow():
     """Class to represent the slideshow window"""
 
-    def __init__(self):
-        self.active = False
-        self.root = None
-        self.panel = None
-        self.progress_label = None
-        self.startstop_button = None
-        self.start_callback = None
-
-    def init(self, title, start_callback, width=400, height=400):
+    def __init__(self, title, start_callback, width=400, height=400):
         """Initialise window and elements"""
+        self.active = False
+
         self.start_callback = start_callback
 
         self.root = tk.Tk()
@@ -38,6 +32,8 @@ class SlideShow():
             command=self.toggle_start)
         self.startstop_button.pack(side='bottom')
 
+    def show(self):
+        """Show the main window and enter the main loop"""
         self.root.mainloop()
 
     def toggle_start(self):

@@ -53,11 +53,15 @@ make init
 
 Otherwise, install Ghostscript. On Ubuntu/Debian you could use:
 
-```apt-get install ghostscript```
+```
+apt-get install ghostscript
+```
 
 Then install python modules:
 
-```pip install -r requirements.txt```
+```
+pip install -r requirements.txt
+```
 
 # Usage
 
@@ -88,4 +92,11 @@ These are the first few found with the program.
 Index   Data Value
 309     04Z
 1289    0kN
+4789    1ff
+5080    1jW
+6828    1M8
+7333    1Uh
+8424    2bS
+8445    2cd
+8651    2fx
 ```

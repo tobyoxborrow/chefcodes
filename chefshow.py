@@ -1,9 +1,12 @@
 """Slideshow of ChefClub barcodes"""
 
 
+import tkinter as tk
+
 from PIL import ImageTk
-from slideshow import SlideShow
+
 from barcode_generator import BarcodeGenerator
+from slideshow import SlideShow
 
 
 class ChefShow(SlideShow):
@@ -18,8 +21,13 @@ class ChefShow(SlideShow):
         if start_index:
             self.ccg.jump(start_index)
 
+        self.back_button = tk.Button(
+            self.panel,
+            text='Back',
+            command=self.jump_back)
+        self.back_button.pack(side='bottom')
 
-        # display the main window and enter main loop
+        # display the main window and enter the main loop
         self.show()
 
     def update_image(self):
@@ -44,5 +52,11 @@ class ChefShow(SlideShow):
         # generation child processes
         self.panel.after(1000, self.update_image)
 
+    def jump_back(self, distance=10):
+        """Jump backwards some number of places in the slideshow"""
+        self.ccg.jump(self.ccg.index - distance)
+        self.update_progress()
+
     def update_progress(self, code=''):
+        """Update the progress label with some stats"""
         super().update_progress(self.ccg.index, self.ccg.count, code)

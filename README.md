@@ -25,6 +25,10 @@ require closer to a week depending on how much time the human can put in.
 There are some videos on youtube of people showing off the codes if you are
 after them quickly.
 
+![](screenshot.png)
+
+![](photo.jpg)
+
 # Implementation
 
 A window is displayed on a computer screen that will display codes one after

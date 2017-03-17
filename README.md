@@ -25,10 +25,6 @@ require closer to a week depending on how much time the human can put in.
 There are some videos on youtube of people showing off the codes if you are
 after them quickly.
 
-![](screenshot.png)
-
-![](photo.jpg)
-
 # Implementation
 
 A window is displayed on a computer screen that will display codes one after
@@ -36,12 +32,16 @@ another, slideshow style. It cycles from 000 to ZZZ. A separate device is
 pointed at the computer displaying the codes with the ChefClub app loaded and
 in its scanning mode.
 
+<img src="screenshot.png" width="500" />
+
 The device running the app should be propped up in such a way it can remain
 steady and also can be connected to a power supply. Depending on the device,
 the scanning function may draw more power than the charger provides, you may
 need to apply certain power saving techniques to extend the life per charge.
 e.g. reduce the screen brightness, disable unnecessary radios, close background
 apps.
+
+![](photo.jpg)
 
 [Treepoem](https://pypi.python.org/pypi/treepoem) is used to generate the Data
 Matrix barcodes. Treepoem provides a nice wrapper around

@@ -12,11 +12,10 @@ from slideshow import SlideShow
 class ChefShow(SlideShow):
     """Class to represent the ChefClub barcode slideshow"""
 
-    def __init__(self, start_index=None):
+    def __init__(self, start_index=None, show=True):
         super().__init__('ChefCodes', self.update_image)
 
         self.ccg = BarcodeGenerator()
-        self.ccg.init()
 
         if start_index:
             self.ccg.jump(start_index)
@@ -28,13 +27,11 @@ class ChefShow(SlideShow):
         self.back_button.pack(side='bottom')
 
         # display the main window and enter the main loop
-        self.show()
+        if show:
+            self.show()
 
     def update_image(self):
         """Change the image that is displayed with the next one"""
-        if not self.is_active():
-            return False
-
         code = self.ccg.next()
 
         self.update_progress(code)

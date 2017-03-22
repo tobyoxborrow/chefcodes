@@ -6,49 +6,36 @@ class BarcodeGenerator():
     """Class to represent the barcode generator"""
 
     def __init__(self):
+        """Initialise counters and generate every code"""
         self.charset = tuple(
             '0123456789'
             'abcdefghijklmnopqrstuvwxyz'
             'ABCDEFGHIJKLMNOPQRSTUVWXYZ')
         self.codes = list()
-        self.count = 0
-        self.code = None
-        self.active = False
-        self.index = 0
-        self.barcode = None
-
-    def init(self):
-        """Initialise counters and generate every code"""
         for a in self.charset:
             for b in self.charset:
                 for c in self.charset:
                     code = "{0}{1}{2}".format(a, b, c)
                     self.codes.append(code)
-        self.active = True
         self.index = 0
         self.code = self.codes[0]
         self.count = len(self.codes)
-        return self.count
+        self.barcode = None
 
-    def jump(self, index):
+    def jump(self, index, generate_barcode=True):
         """Skip to a specific code index"""
-        if not self.active:
-            return None
-
         self.index = index
         self.code = self.codes[self.index]
-        self.generate_barcode()
+        if generate_barcode:
+            self.generate_barcode()
         return self.code
 
-    def next(self):
+    def next(self, generate_barcode=True):
         """Move to the next code"""
-        return self.jump(self.index + 1)
+        return self.jump(self.index + 1, generate_barcode)
 
     def generate_barcode(self):
         """Generate image of current barcode and return the image object"""
-        if not self.active:
-            return None
-
         self.barcode = treepoem.generate_barcode(
             barcode_type='datamatrix',
             data=self.code,

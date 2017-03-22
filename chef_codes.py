@@ -5,7 +5,7 @@ from chefshow import ChefShow
 
 def main():
     """Main"""
-    ChefShow(7335)
+    ChefShow()
 
 
 if __name__ == '__main__':

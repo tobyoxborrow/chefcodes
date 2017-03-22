@@ -22,17 +22,16 @@ class BarcodeGenerator():
         self.count = len(self.codes)
         self.barcode = None
 
-    def jump(self, index, generate_barcode=True):
+    def jump(self, index):
         """Skip to a specific code index"""
         self.index = index
         self.code = self.codes[self.index]
-        if generate_barcode:
-            self.generate_barcode()
+        self.generate_barcode()
         return self.code
 
-    def next(self, generate_barcode=True):
+    def next(self):
         """Move to the next code"""
-        return self.jump(self.index + 1, generate_barcode)
+        return self.jump(self.index + 1)
 
     def generate_barcode(self):
         """Generate image of current barcode and return the image object"""

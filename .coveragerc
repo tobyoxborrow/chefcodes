@@ -1,11 +1,2 @@
 [run]
 omit=*pyenv*
-
-[report]
-exclude_lines =
-    # the samplefunction's in test_slideshow do not need coverage
-    pass
-    # these statements will block while the GUI is visible
-    # as such, they will just have to be skipped
-    self.root.mainloop()
-    self.show()

@@ -1,60 +1,76 @@
 from slideshow import SlideShow
 
 
-def test_init():
-    """Test init function sets expected values"""
-    def samplefunction():
-        """Sample function for start_callback"""
-        pass
-    slideshow = SlideShow("ZlNLpWJUv52wgu2Y", samplefunction)
-    assert slideshow.root.title() == "ZlNLpWJUv52wgu2Y"
-    assert slideshow.start_callback == samplefunction
+def test_init_title(mocker):
+    """Test init function sets title value"""
+    stub = mocker.stub()
+    mocker.patch("tkinter.Tk")
+    slideshow = SlideShow("ZlNLpWJUv52wgu2Y", stub)
+    slideshow.root.title.assert_called_once_with("ZlNLpWJUv52wgu2Y")
 
 
-def test_update_progress():
-    """Test update_progress sets expected value"""
-    def samplefunction():
-        """Sample function for start_callback"""
-        pass
-    slideshow = SlideShow("sampletitle", samplefunction)
-    slideshow.update_progress(500, 1000, "gx8oN6ZDHc3lv3xy")
-    label_text = slideshow.progress_label.config('text')[4]
-    assert label_text == "500 (50.00%): gx8oN6ZDHc3lv3xy"
+def test_init_callback(mocker):
+    """Test init function sets callback"""
+    stub = mocker.stub()
+    slideshow = SlideShow("", stub)
+    assert slideshow.start_callback == stub
 
 
-def test_toggle_start_active():
+def test_init_geometry(mocker):
+    """Test init function sets geometry values"""
+    stub = mocker.stub()
+    mocker.patch("tkinter.Tk")
+    slideshow = SlideShow("", stub, 500, 600)
+    slideshow.root.geometry.assert_called_once_with("500x600+0+0")
+
+
+def test_show(mocker):
+    """Test show function calls Tk.mainloop()"""
+    stub = mocker.stub()
+    mocker.patch("tkinter.Tk")
+    slideshow = SlideShow("", stub)
+    slideshow.show()
+    slideshow.root.mainloop.assert_called_once_with()
+
+
+def test_toggle_start_active(mocker):
     """Test toggle_start sets active value"""
-    def samplefunction():
-        """Sample function for start_callback"""
-        pass
-    slideshow = SlideShow("sampletitle", samplefunction)
+    stub = mocker.stub()
+    mocker.patch("tkinter.Tk")
+    slideshow = SlideShow("", stub)
     assert slideshow.is_active() is False
     slideshow.toggle_start()
     assert slideshow.is_active() is True
 
 
-def test_toggle_start_callback():
+def test_toggle_start_callback(mocker):
     """Test toggle_start calls the callback function"""
-    def samplefunction():
-        """Sample function for start_callback"""
-        samplefunction.counter += 1
-    samplefunction.counter = 0
-    slideshow = SlideShow("sampletitle", samplefunction)
+    stub = mocker.stub()
+    mocker.patch("tkinter.Tk")
+    slideshow = SlideShow("", stub)
     slideshow.toggle_start()
-    assert samplefunction.counter == 1
+    stub.assert_called_once_with()
 
 
-def test_toggle_start_buttontext():
+def test_toggle_start_buttontext(mocker):
     """Test toggle_start changes the button text"""
-    def samplefunction():
-        """Sample function for start_callback"""
-        pass
-    slideshow = SlideShow("sampletitle", samplefunction)
+    stub = mocker.stub()
+    mocker.patch("tkinter.Tk")
+    mocker.patch("tkinter.Button")
+    slideshow = SlideShow("", stub)
 
     slideshow.toggle_start()
-    button_text = slideshow.startstop_button.config('text')[4]
-    assert button_text == "Stop"
+    slideshow.startstop_button.config.assert_called_once_with(text="Stop")
 
     slideshow.toggle_start()
-    button_text = slideshow.startstop_button.config('text')[4]
-    assert button_text == "Start"
+    slideshow.startstop_button.config.assert_called_with(text="Start")
+
+
+def test_update_progress(mocker):
+    """Test update_progress sets expected value"""
+    stub = mocker.stub()
+    mocker.patch("tkinter.Tk")
+    mocker.patch("tkinter.Label")
+    slideshow = SlideShow("", stub)
+    slideshow.update_progress(500, 600, "gx8oN6ZDHc3lv3xy")
+    slideshow.progress_label.config.assert_called_once_with(text="500 (83.33%): gx8oN6ZDHc3lv3xy")

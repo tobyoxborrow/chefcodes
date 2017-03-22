@@ -1,5 +1,6 @@
-from barcode_generator import BarcodeGenerator
 import PIL
+
+from barcode_generator import BarcodeGenerator
 
 
 def test_init():
